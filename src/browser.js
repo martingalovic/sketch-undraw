@@ -14,6 +14,7 @@ export default function (context) {
     title: "Pick Illustration",
     width: 800,
     height: 600,
+    resizable: false,
     show: false
   }
 
@@ -63,7 +64,7 @@ export default function (context) {
       }
 
       if (!pasted) {
-        sketch.UI.message("ℹ️ No group / artboard was selected, pasting to page")
+        sketch.UI.message("ℹ️ No Rectangle, Group or Artboard was selected — pasting to Page")
         // paste to page
         page.layers.push(group)
       }
