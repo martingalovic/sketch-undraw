@@ -16,8 +16,8 @@ export default class App extends React.Component {
       illustrations: [],
       hasMore: null,
 
-      query: '',
-      color: '#bada55',
+      searchTerms: '',
+      primaryColor: '#bada55',
 
       loading: true,
       pasting: false,
@@ -51,10 +51,10 @@ export default class App extends React.Component {
   }
 
   onSvgClick(item) {
-    const {color} = this.state
+    const {primaryColor} = this.state
     this.setState({pasting: true})
 
-    getImage(item.image, color)
+    getImage(item.image, primaryColor)
       .then(response => {
         window.postMessage('pasteIllustration', response.data.img)
       })
@@ -64,6 +64,14 @@ export default class App extends React.Component {
       .finally(() => {
         this.setState({pasting: false})
       })
+  }
+
+  onSearchChange(searchTerms) {
+    this.setState({searchTerms})
+  }
+
+  onPrimaryColorChange(primaryColor) {
+    this.setState({primaryColor})
   }
 
   render() {
@@ -78,7 +86,13 @@ export default class App extends React.Component {
     } else if (searching) {
       content = <EmptyState message="Searching..." />
     } else {
-      content = <List onSvgClick={this.onSvgClick.bind(this)} illustrations={illustrations} />
+      content =
+        <List
+          onSearchChange={this.onSearchChange.bind(this)}
+          onPrimaryColorChange={this.onPrimaryColorChange.bind(this)}
+          onSvgClick={this.onSvgClick.bind(this)}
+          illustrations={illustrations}
+        />
     }
 
     return (

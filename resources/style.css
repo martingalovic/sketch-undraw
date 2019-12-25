@@ -105,6 +105,8 @@ header #created-by #author:hover {
 #list {
     display: flex;
     flex-wrap: wrap;
+
+    margin: 0 -10px;
 }
 #list .list__item {
     -webkit-box-sizing: border-box;
@@ -119,7 +121,6 @@ header #created-by #author:hover {
 
     word-wrap: break-word;
     text-align: center;
-
 }
 
 #list .list__item .inner {
