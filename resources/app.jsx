@@ -19,6 +19,8 @@ export default class App extends React.Component {
       color: '#bada55',
 
       loading: true,
+      pasting: false,
+      searching: false,
     }
   }
 
@@ -37,6 +39,7 @@ export default class App extends React.Component {
 
   onSvgClick(item) {
     const {color} = this.state
+    this.setState({pasting: true})
 
     getImage(item.image, color)
       .then(response => {
@@ -45,15 +48,22 @@ export default class App extends React.Component {
       .catch(err => {
         window.postMessage('nativeLog', "❌ Couldn't download illustration")
       })
+      .finally(() => {
+        this.setState({pasting: false})
+      })
   }
 
   render() {
-    const {loading, illustrations, hasMore} = this.state
+    const {loading, pasting, searching, illustrations, hasMore} = this.state
 
     let content
 
     if (loading) {
       content = <EmptyState message="Loading..." />
+    } else if (pasting) {
+      content = <EmptyState message="Downloading & Pasting..." />
+    } else if (searching) {
+      content = <EmptyState message="Searching..." />
     } else {
       content = <List onSvgClick={this.onSvgClick.bind(this)} illustrations={illustrations} />
     }

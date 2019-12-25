@@ -47,11 +47,17 @@ export default function (context) {
           const ratio = group.frame.width / group.frame.height
           group.frame.width = layer.frame.width
           group.frame.height = layer.frame.width / ratio
+
           if (_.contains(['Artboard', 'Group'], layer.type)) {
             layer.layers.push(group)
             pasted = true
           } else if (_.contains(['ShapePath'], layer.type)) {
-            // replace layer content
+            group.parent = layer.parent
+            group.frame.x = layer.frame.x
+            group.frame.y = layer.frame.y
+            layer.remove()
+
+            pasted = true
           }
         })
       }
@@ -62,7 +68,7 @@ export default function (context) {
         page.layers.push(group)
       }
 
-      document.centerOnLayer(group)
+      // document.centerOnLayer(group) // XXX: Personally, I don't like centering :/ Will see based on feedback
       browserWindow.close()
     } catch (err) {
       sketch.UI.message("❌ Error occured: " + err)
