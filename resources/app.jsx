@@ -30,7 +30,6 @@ export default class App extends React.Component {
   }
 
   fetchMore(page) {
-    // window.postMessage('nativeLog', 'fetching ' + page)
     getList(page)
       .then(response => {
         this.setState({
