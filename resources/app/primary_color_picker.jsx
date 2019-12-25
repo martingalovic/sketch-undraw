@@ -2,16 +2,18 @@ import React from 'react'
 
 export default class PrimaryColorPicker extends React.Component {
   render() {
-    const {onChange} = this.props
+    const {onChange, primaryColor} = this.props
 
-    const colors = ['#bada55', '#e74c3c', '#000000'].map(color => {
+    const colors = ['#bada55', '#fff', '#e74c3c', '#000000'].map(color => {
+      const active = primaryColor === color
+
       return (
-        <li style={{backgroundColor: color}} onClick={() => onChange(color)} />
+        <li className={(active ? "active" : '')} style={{backgroundColor: color}} onClick={() => onChange(color)} />
       )
     })
 
     return (
-      <div>
+      <div id="primary-color-picker">
         <span>Primary color</span>
         <ul>
           {colors}

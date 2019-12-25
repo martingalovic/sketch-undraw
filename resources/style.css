@@ -48,7 +48,7 @@ header {
     align-items: flex-end;
     padding-bottom: 1.5rem;
     border-bottom: 2px solid #EEE;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 header h1 {
@@ -93,13 +93,6 @@ header #created-by #author:hover {
 }
 
 /* ================= */
-/*       Search      */
-/* ================= */
-#search {}
-#search #input {}
-#search #exit {}
-
-/* ================= */
 /*        List       */
 /* ================= */
 #list {
@@ -109,10 +102,6 @@ header #created-by #author:hover {
     margin: 0 -10px;
 }
 #list .list__item {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
     flex: 0 0 25%;
     max-width: 25%;
 
@@ -153,6 +142,76 @@ header #created-by #author:hover {
     width: 90%;
     margin: 0 auto;
     font-size: .9rem;
+}
+
+/* ================= */
+/*    List config    */
+/* ================= */
+#list__config {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+
+    font-size: .9rem;
+}
+#list__config #search-form {
+
+}
+#list__config #search-form input {
+    width: 150px;
+    height: 24px;
+    border-radius: 3px;
+    border: 1px solid #EEE;
+    outline: 0;
+    padding: 0 12px;
+    margin-right: .5rem;
+}
+#list__config #search-form input:focus {
+    border-color: #2F7BF7;
+}
+#list__config #search-form button {
+    border: 0;
+    background: none;
+    color: #2F7BF7;
+}
+#list__config #search-form button:active {
+    color: #5D97F6;
+}
+
+#list__config #primary-color-picker {
+    display: flex;
+    align-items: center;
+}
+#list__config #primary-color-picker ul {
+    margin-left: .75rem;
+    display: inline-block;
+    padding: 0;
+    list-style-type: none;
+}
+#list__config #primary-color-picker ul li {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin-right: .4rem;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,.05);
+    cursor: pointer;
+}
+#list__config #primary-color-picker ul li.active:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -3px;
+    margin-left: -3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
 }
 
 /* ================= */

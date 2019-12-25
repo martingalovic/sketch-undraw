@@ -1,13 +1,11 @@
 import React from 'react'
 
 import ListItem from './list_item.jsx'
-import Search from './search.jsx'
 import EmptyState from './empty_state.jsx'
-import PrimaryColorPicker from './primary_color_picker.jsx'
 
 export default class List extends React.Component {
   render() {
-    const {illustrations, onSvgClick, onSearchChange, onPrimaryColorChange} = this.props
+    const {illustrations, onSvgClick} = this.props
 
     if (illustrations.length > 0) {
       const items = illustrations.map(item => {
@@ -15,21 +13,9 @@ export default class List extends React.Component {
       })
 
       return (
-        <React.Fragment>
-          <div id="list__config">
-            <div>
-              <Search onChange={onSearchChange}/>
-            </div>
-
-            <div>
-              <PrimaryColorPicker onChange={onPrimaryColorChange} />
-            </div>
-          </div>
-
-          <div id="list">
-            {items}
-          </div>
-        </React.Fragment>
+        <div id="list">
+          {items}
+        </div>
       )
     }
 

@@ -32,6 +32,10 @@ export default function (context) {
     sketch.UI.message(s)
   })
 
+  webContents.on('console', s => {
+    console.log(s)
+  })
+
   webContents.on('close', () => {
     browserWindow.close()
   })
