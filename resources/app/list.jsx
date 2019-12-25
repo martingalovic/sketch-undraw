@@ -7,7 +7,7 @@ import PrimaryColorPicker from './primary_color_picker.jsx'
 
 export default class List extends React.Component {
   render() {
-    const {illustrations, onSvgClick, onSearchChange} = this.props
+    const {illustrations, onSvgClick, onSearchChange, onPrimaryColorChange} = this.props
 
     if (illustrations.length > 0) {
       const items = illustrations.map(item => {
@@ -22,7 +22,7 @@ export default class List extends React.Component {
             </div>
 
             <div>
-              {/*<PrimaryColorPicker onChange={onPrimaryColorChange} />*/}
+              <PrimaryColorPicker onChange={onPrimaryColorChange} />
             </div>
           </div>
 
