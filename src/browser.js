@@ -4,6 +4,8 @@ import { getWebview } from 'sketch-module-web-view/remote'
 import sketch from 'sketch'
 import sketchDOM from 'sketch/dom'
 
+import _ from 'underscore'
+
 const webviewIdentifier = 'sketch-undraw.webview'
 
 export default function (context) {
@@ -37,11 +39,24 @@ export default function (context) {
       const page = document.selectedPage
       const layers = page.selectedLayers
 
+      let pasted = false
+
       if (layers.length === 1) {
         layers.forEach(layer => {
-          layer.layers.push(group)
+          if (_.contains(['Artboard', 'Group'], layer.type)) {
+            const ratio = group.frame.width / group.frame.height
+            group.frame.width = layer.frame.width
+            group.frame.height = layer.frame.width / ratio
+
+            layer.layers.push(group)
+
+            pasted = true
+          }
         })
-      } else {
+      }
+
+      if (!pasted) {
+        sketch.UI.message("ℹ️ No group / artboard was selected, pasting to page")
         // paste to page
         page.layers.push(group)
       }
