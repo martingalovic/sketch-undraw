@@ -161,3 +161,6 @@ header #created-by #author:hover {
     text-align: center;
     padding: 5rem 0;
 }
+.text-center {
+    text-align: center;
+}

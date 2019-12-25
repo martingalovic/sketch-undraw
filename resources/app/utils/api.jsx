@@ -3,7 +3,7 @@ import axios from 'axios'
 const endpoint = 'https://undraw-api.herokuapp.com'
 
 export function getList(page) {
-  return axios.post(endpoint + '/list?page=' + page, {page: page})
+  return axios.post(endpoint + '/list?page=' + page, {page: "" + page})
 }
 
 export function getSearchList(terms) {

@@ -6,12 +6,13 @@ import List from './app/list.jsx'
 import {getList, getImage, getSearch} from "./app/utils/api.jsx"
 import EmptyState from "./app/empty_state.jsx"
 
+import InfiniteScroll from 'react-infinite-scroller'
+
 export default class App extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      currentPage: 0,
       illustrations: [],
       hasMore: null,
 
@@ -25,9 +26,18 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    getList(this.state.currentPage)
+    this.fetchMore(0)
+  }
+
+  fetchMore(page) {
+    // window.postMessage('nativeLog', 'fetching ' + page)
+    getList(page)
       .then(response => {
-        this.setState({ illustrations: response.data.icons, hasMore: response.data.hasMore })
+        this.setState({
+          illustrations: this.state.illustrations.concat(response.data.icons),
+          hasMore: response.data.hasMore,
+          nextPage: page + 1
+        })
       })
       .catch(err => {
         window.postMessage('nativeLog', "❌ Unable to load illustrations ")
@@ -72,7 +82,15 @@ export default class App extends React.Component {
       <div className="app__container">
         <Heading/>
 
-        {content}
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.fetchMore.bind(this)}
+          hasMore={hasMore}
+          loader={<div className="text-center">Loading more...</div>}
+          useWindow={false}
+        >
+          {content}
+        </InfiniteScroll>
       </div>
     )
   }
