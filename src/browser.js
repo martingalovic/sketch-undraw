@@ -32,6 +32,10 @@ export default function (context) {
     sketch.UI.message(s)
   })
 
+  webContents.on('close', () => {
+    browserWindow.close()
+  })
+
   webContents.on('pasteIllustration', illustration => {
     try {
       const group = sketchDOM.createLayerFromData(illustration, 'svg')

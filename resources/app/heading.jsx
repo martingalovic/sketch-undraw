@@ -2,6 +2,8 @@ import React from 'react'
 
 export default class Heading extends React.Component {
   render() {
+    const {close} = this.props
+
     return (
       <header>
         <div>
@@ -13,7 +15,7 @@ export default class Heading extends React.Component {
         </div>
 
         <div id="header__right">
-          <button id="close">&times;</button>
+          <button id="close" onClick={close}>&times;</button>
 
           <div id="created-by">
             <small>Created by</small>

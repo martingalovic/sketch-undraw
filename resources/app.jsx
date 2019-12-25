@@ -46,6 +46,10 @@ export default class App extends React.Component {
       })
   }
 
+  close() {
+    window.postMessage('close')
+  }
+
   onSvgClick(item) {
     const {color} = this.state
     this.setState({pasting: true})
@@ -79,7 +83,7 @@ export default class App extends React.Component {
 
     return (
       <div className="app__container">
-        <Heading/>
+        <Heading close={this.close.bind(this)}/>
 
         <InfiniteScroll
           pageStart={0}
