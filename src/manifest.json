@@ -1,0 +1,28 @@
+{
+  "author": "Martin Galovic",
+  "authorEmail": "hi@martingalovic.com",
+
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+
+  "commands": [
+    {
+      "name": "Find illustration",
+      "identifier": "sketch-undraw.browser",
+      "shortcut": "ctrl alt u",
+      "script": "./browser.js",
+      "handlers": {
+        "run": "onRun",
+        "actions": {
+          "Shutdown": "onShutdown"
+        }
+      }
+    }
+  ],
+  "menu": {
+    "title": "🖼 unDraw.co Illustrations",
+    "items": [
+      "sketch-undraw.browser"
+    ]
+  }
+}

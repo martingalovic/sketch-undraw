@@ -6,11 +6,11 @@ import EmptyState from './empty_state.jsx'
 
 export default class List extends React.Component {
   render() {
-    const {illustrations} = this.props
+    const {illustrations, onSvgClick} = this.props
 
     if (illustrations.length > 0) {
       const items = illustrations.map(item => {
-        return <ListItem key={item._id} item={item} />
+        return <ListItem key={item._id} onSvgClick={onSvgClick} item={item} />
       })
 
       return (

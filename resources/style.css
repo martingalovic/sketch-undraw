@@ -1,0 +1,159 @@
+/* some default styles to make the view more native like */
+
+html {
+    box-sizing: border-box;
+
+    /* Force the default cursor, even on text */
+    cursor: default;
+
+    font-size: 13px;
+    color: #666666;
+    font-family: -apple-system, Arial, sans-serif;
+
+    background-color: #F7F7F7;
+
+    overflow: hidden;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    /* Prevent the content from being selectionable */
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+input, textarea {
+    -webkit-user-select: auto;
+    user-select: auto;
+}
+
+.app__container {
+    width: 100%;
+    height: 600px;
+
+    padding: 3rem 2.5rem 2.5rem;
+    overflow-y: auto;
+}
+
+/* ================= */
+/*       Header      */
+/* ================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #EEE;
+    margin-bottom: 1.5rem;
+}
+
+header h1 {
+    display: block;
+    color: #222222;
+    font-size: 1.5rem;
+}
+
+header h3 {
+    font-size: 1rem;
+    font-weight: normal;
+    margin-top: .75rem;
+    line-height: 1.4;
+}
+
+header #header__right {
+    text-align: right;
+}
+
+header #close {
+    background: none;
+    border: 0;
+    font-size: 2rem;
+    line-height: 1.5rem;
+    color: #111;
+}
+
+header #created-by {
+    font-size: 1rem;
+    margin-top: .75rem;
+    line-height: 1.4;
+}
+
+header #created-by #author {
+    font-size: 1rem;
+    display: block;
+    color: #2B67C8;
+    text-decoration: none;
+}
+header #created-by #author:hover {
+    text-decoration: underline;
+}
+
+/* ================= */
+/*       Search      */
+/* ================= */
+#search {}
+#search #input {}
+#search #exit {}
+
+/* ================= */
+/*        List       */
+/* ================= */
+#list {
+    display: flex;
+    flex-wrap: wrap;
+}
+#list .list__item {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    flex: 0 0 25%;
+    max-width: 25%;
+
+    padding: 0 10px;
+    margin-bottom: 20px;
+
+    word-wrap: break-word;
+    text-align: center;
+
+}
+
+#list .list__item .inner {
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #EEEEEE;
+    padding-bottom: 10px;
+}
+
+#list .list__item .image {
+    width: 100%;
+    height: 130px;
+    margin: .5rem .25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+#list .list__item .image img {
+    max-width: 95%;
+    max-height: 100%;
+}
+
+#list .list__item h4 {
+    font-weight: normal;
+    width: 90%;
+    margin: 0 auto;
+    font-size: .9rem;
+}
+
+/* ================= */
+/*        Misc       */
+/* ================= */
+.empty-state {
+    text-align: center;
+    padding: 5rem 0;
+}
