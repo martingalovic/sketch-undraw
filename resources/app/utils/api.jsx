@@ -6,7 +6,7 @@ export function getList(page) {
   return axios.post(endpoint + '/list?page=' + page, {page: page})
 }
 
-export function getSearch(terms) {
+export function getSearchList(terms) {
   return axios.post(endpoint + '/search', {terms: terms})
 }
 

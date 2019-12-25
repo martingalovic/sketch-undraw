@@ -7,8 +7,8 @@ export default class ListItem extends React.Component {
     const imageSrc = item.image.replace(".svg", ".png").replace("/illustrations/", "/pngs/")
 
     return (
-      <div className="list__item" onClick={() => onSvgClick(item)}>
-        <div className="inner">
+      <div className="list__item">
+        <div className="inner" onClick={() => onSvgClick(item)}>
           <div className="image">
             <img src={imageSrc} alt=""/>
           </div>

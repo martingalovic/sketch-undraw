@@ -11,6 +11,7 @@ const webviewIdentifier = 'sketch-undraw.webview'
 export default function (context) {
   const options = {
     identifier: webviewIdentifier,
+    title: "Pick Illustration",
     width: 800,
     height: 600,
     show: false
@@ -43,14 +44,14 @@ export default function (context) {
 
       if (layers.length === 1) {
         layers.forEach(layer => {
+          const ratio = group.frame.width / group.frame.height
+          group.frame.width = layer.frame.width
+          group.frame.height = layer.frame.width / ratio
           if (_.contains(['Artboard', 'Group'], layer.type)) {
-            const ratio = group.frame.width / group.frame.height
-            group.frame.width = layer.frame.width
-            group.frame.height = layer.frame.width / ratio
-
             layer.layers.push(group)
-
             pasted = true
+          } else if (_.contains(['ShapePath'], layer.type)) {
+            // replace layer content
           }
         })
       }
@@ -60,6 +61,9 @@ export default function (context) {
         // paste to page
         page.layers.push(group)
       }
+
+      document.centerOnLayer(group)
+      browserWindow.close()
     } catch (err) {
       sketch.UI.message("❌ Error occured: " + err)
     }

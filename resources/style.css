@@ -85,7 +85,7 @@ header #created-by {
 header #created-by #author {
     font-size: 1rem;
     display: block;
-    color: #2B67C8;
+    color: #2F7BF7;
     text-decoration: none;
 }
 header #created-by #author:hover {
@@ -127,6 +127,10 @@ header #created-by #author:hover {
     background: #fff;
     border: 1px solid #EEEEEE;
     padding-bottom: 10px;
+}
+
+#list .list__item .inner:hover {
+    border-color: #2F7BF7;
 }
 
 #list .list__item .image {
