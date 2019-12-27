@@ -1,7 +1,14 @@
 {
+  "name": "unDraw.co for Sketch App",
+  "description": "Quickly insert unDraw.co illustration into Sketch document",
   "author": "Martin Galovic",
   "authorEmail": "hi@martingalovic.com",
+  "homepage": "https://martingalovic.com/sketch/undraw",
 
+  "version": "1.0",
+  "identifier": "com.martingalovic.sketch-undraw",
+
+  "icon": "icon.png",
   "compatibleVersion": 3,
   "bundleVersion": 1,
 
