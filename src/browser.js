@@ -22,13 +22,10 @@ export default function (context) {
 
   // only show the window when the page has loaded to avoid a white flash
   browserWindow.once('ready-to-show', () => {
-    browserWindow.webContents.executeJavaScript('initializeApp({documentColors: ["#bada55", "#ff0000"]})')
-      .then(res => {
-        console.log('res', res)
-      })
-      .catch(err => {
-        console.error('err', err)
-      })
+    const documentColors = sketch.getSelectedDocument().colors.map(color => color.color.substr(0, 7))
+    const documentColorsInline = documentColors.map(color => '"'+color+'"').join(",")
+    browserWindow.webContents.executeJavaScript('initializeApp({documentColors: [' + documentColorsInline + ']})')
+
     browserWindow.show()
   })
 

@@ -45,7 +45,7 @@ export default class Search extends React.Component {
     return (
       <div id="search-form">
         <input value={tmpSearchTerms} onChange={(event) => this.handleValueChange(event)} autoFocus={true} placeholder="Type to search" />
-        <button onClick={this.clear.bind(this)} disabled={this.isEmpty()}>Clear</button>
+        <button onClick={this.clear.bind(this)} disabled={this.isEmpty()}>Cancel</button>
       </div>
     )
   }

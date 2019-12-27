@@ -154,7 +154,7 @@ export default class App extends React.Component {
 
         <div id="list__config">
           <Search searchTerms={searchTerms} onChange={this.onSearchChange.bind(this)}/>
-          <PrimaryColorPicker colors={documentColors.length > 0 ? documentColors : ['#bada55', '#e74c3c', '#000000', '#161D40']} primaryColor={primaryColor} onChange={this.onPrimaryColorChange.bind(this)} />
+          <PrimaryColorPicker colors={documentColors} primaryColor={primaryColor} onChange={this.onPrimaryColorChange.bind(this)} />
         </div>
 
         {content}
