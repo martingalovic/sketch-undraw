@@ -1,8 +1,14 @@
 import React from 'react'
 
 export default class Heading extends React.Component {
-  openAuthorSite() {
-    window.postMessage('externalLinkClicked', 'https://twitter.com/galovic_')
+  constructor(props) {
+    super(props);
+    this.martinGalovicURL = "https://twitter.com/galovic_"
+  }
+
+  openAuthorSite(e) {
+    e.preventDefault()
+    window.postMessage('externalLinkClicked', this.martinGalovicURL)
   }
 
   render() {
@@ -23,7 +29,7 @@ export default class Heading extends React.Component {
 
           <div id="created-by">
             <small>Created by</small>
-            <a onClick={this.openAuthorSite.bind(this)} id="author" href="https://twitter.com/galovic_">Martin Galovic</a>
+            <a onClick={this.openAuthorSite.bind(this)} id="author" href={this.martinGalovicURL}>Martin Galovic</a>
           </div>
         </div>
       </header>

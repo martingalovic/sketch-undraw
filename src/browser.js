@@ -22,9 +22,13 @@ export default function (context) {
 
   // only show the window when the page has loaded to avoid a white flash
   browserWindow.once('ready-to-show', () => {
-    browserWindow.webContents.executeJavaScript('initializeApp()', (err, res) => {
-      console.log(err, res)
-    })
+    browserWindow.webContents.executeJavaScript('initializeApp({documentColors: ["#bada55", "#ff0000"]})')
+      .then(res => {
+        console.log('res', res)
+      })
+      .catch(err => {
+        console.error('err', err)
+      })
     browserWindow.show()
   })
 
