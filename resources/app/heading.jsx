@@ -1,6 +1,10 @@
 import React from 'react'
 
 export default class Heading extends React.Component {
+  openAuthorSite() {
+    window.postMessage('externalLinkClicked', 'https://twitter.com/galovic_')
+  }
+
   render() {
     const {close} = this.props
 
@@ -19,7 +23,7 @@ export default class Heading extends React.Component {
 
           <div id="created-by">
             <small>Created by</small>
-            <a id="author" href="https://twitter.com/galovic_" target="_blank">Martin Galovic</a>
+            <a onClick={this.openAuthorSite.bind(this)} id="author" href="https://twitter.com/galovic_">Martin Galovic</a>
           </div>
         </div>
       </header>

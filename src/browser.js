@@ -22,6 +22,9 @@ export default function (context) {
 
   // only show the window when the page has loaded to avoid a white flash
   browserWindow.once('ready-to-show', () => {
+    browserWindow.webContents.executeJavaScript('initializeApp()', (err, res) => {
+      console.log(err, res)
+    })
     browserWindow.show()
   })
 
@@ -30,6 +33,10 @@ export default function (context) {
   // add a handler for a call from web content's javascript
   webContents.on('nativeLog', s => {
     sketch.UI.message(s)
+  })
+
+  webContents.on('externalLinkClicked', url => {
+    NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url))
   })
 
   webContents.on('console', s => {
