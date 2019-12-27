@@ -17,17 +17,26 @@ export default function (context) {
     resizable: false,
     show: false
   }
-  const lastColorSettingKey = 'sketch-undraw.last-color'
+  const recentColorsSettingKey = 'sketch-undraw.recent-colors.1'
+  const lastColorSettingKey = 'sketch-undraw.last-color.1'
 
   const browserWindow = new BrowserWindow(options)
 
   // only show the window when the page has loaded to avoid a white flash
   browserWindow.once('ready-to-show', () => {
     const documentColors = sketch.getSelectedDocument().colors.map(color => color.color.substr(0, 7))
+    let recentColors = sketch.Settings.settingForKey(recentColorsSettingKey)
+    try {
+      recentColors = JSON.parse(recentColors.length > 0 ? recentColors : null)
+    } catch {
+      recentColors = null
+    }
+    const lastColor = sketch.Settings.settingForKey(lastColorSettingKey)
 
     const props = {
       documentColors: documentColors,
-      lastColor: sketch.Settings.settingForKey(lastColorSettingKey)
+      recentColors: recentColors,
+      lastColor: lastColor,
     }
     browserWindow.webContents.executeJavaScript('initializeApp('+JSON.stringify(props)+')')
 
@@ -41,6 +50,10 @@ export default function (context) {
     sketch.UI.message(s)
   })
 
+
+  webContents.on('updateRecentColorsSetting', colors => {
+    sketch.Settings.setSettingForKey(recentColorsSettingKey, colors)
+  })
 
   webContents.on('updateLastColorSetting', color => {
     sketch.Settings.setSettingForKey(lastColorSettingKey, color)

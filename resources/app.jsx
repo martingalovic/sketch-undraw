@@ -13,6 +13,7 @@ import InfiniteScroll from 'react-infinite-scroller'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
+    const lastColor = props.lastColor
 
     this.state = {
       searchIllustrations: null,
@@ -20,7 +21,7 @@ export default class App extends React.Component {
       hasMore: null,
 
       searchTerms: '',
-      primaryColor: props.lastColor,
+      primaryColor: lastColor,
 
       loading: true,
       pasting: false,
@@ -52,7 +53,6 @@ export default class App extends React.Component {
     const {searchTerms} = this.state
 
     this.setState({searching: true})
-    window.postMessage('console', 'loading' + searchTerms)
 
     getSearchList(searchTerms)
       .then(response => {
@@ -112,7 +112,8 @@ export default class App extends React.Component {
     } = this.state
 
     const {
-      documentColors
+      documentColors,
+      recentColors
     } = this.props
 
     let content
@@ -157,7 +158,7 @@ export default class App extends React.Component {
 
           <div id="list__config">
             <Search searchTerms={searchTerms} onChange={this.onSearchChange.bind(this)}/>
-            <PrimaryColorPicker colors={documentColors} primaryColor={primaryColor} onChange={this.onPrimaryColorChange.bind(this)} />
+            <PrimaryColorPicker recentColors={recentColors} documentColors={documentColors} primaryColor={primaryColor} onChange={this.onPrimaryColorChange.bind(this)} />
           </div>
         </div>
 

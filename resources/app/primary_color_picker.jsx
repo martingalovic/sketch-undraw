@@ -1,8 +1,10 @@
 import React from 'react'
+import _ from 'underscore'
 
 export default class PrimaryColorPicker extends React.Component {
   constructor(props) {
     super(props);
+
     this.defaultColors = [
       '#DF1F20',
       '#FA6401',
@@ -17,15 +19,29 @@ export default class PrimaryColorPicker extends React.Component {
   }
 
   colors() {
-    const {colors, primaryColor} = this.props
+    const {recentColors, documentColors, primaryColor} = this.props
 
-    let tmpColors = (colors.length > 0 ? colors : this.defaultColors)
+    // recent colors are the first ones
+    let tmpColors = (
+      documentColors && documentColors.length > 0
+        ? documentColors
+        : this.defaultColors)
 
-    if (tmpColors.indexOf(primaryColor) === -1) {
-      tmpColors = [primaryColor].concat(tmpColors)
+    // then we add document colors
+    if (recentColors) {
+      tmpColors = tmpColors.concat(recentColors)
     }
 
-    return tmpColors.slice(0, this.colorsLimit);
+    if (primaryColor && tmpColors.indexOf(primaryColor) === -1) {
+      tmpColors = [primaryColor].concat(tmpColors)
+    }
+    tmpColors = _.unique(tmpColors)
+
+    const lastColors = tmpColors.slice(0, this.colorsLimit)
+
+    window.postMessage('updateRecentColorsSetting', JSON.stringify(lastColors))
+
+    return lastColors;
   }
 
   render() {
