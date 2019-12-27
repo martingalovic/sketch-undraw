@@ -10,17 +10,32 @@ export default class Search extends React.Component {
     }
   }
 
-  updateAppValue() {
+  performAppUpdate() {
     this.props.onChange(this.state.tmpSearchTerms)
   }
 
-  updateValue(event) {
-    this.setState({tmpSearchTerms: event.target.value})
-    this.updateAppValue()
+  handleSearchQuery(query) {
+    clearTimeout(this.typingTimer)
+
+    this.typingTimer = setTimeout(() => {
+      this.performAppUpdate()
+    }, 500)
+  }
+
+  handleValueChange(event) {
+    this.setState({tmpSearchTerms: event.target.value}, () => {
+      this.handleSearchQuery(this.state.tmpSearchTerms)
+    })
   }
 
   clear() {
-    this.setState({tmpSearchTerms: ''})
+    this.setState({tmpSearchTerms: ''}, () => {
+      this.performAppUpdate()
+    })
+  }
+
+  isEmpty() {
+    return !this.state.tmpSearchTerms || this.state.tmpSearchTerms === ''
   }
 
   render() {
@@ -29,8 +44,8 @@ export default class Search extends React.Component {
 
     return (
       <div id="search-form">
-        <input value={tmpSearchTerms} onChange={(event) => this.updateValue(event)} placeholder="Type to search" />
-        <button onClick={this.clear.bind(this)}>Clear</button>
+        <input value={tmpSearchTerms} onChange={(event) => this.handleValueChange(event)} autoFocus={true} placeholder="Type to search" />
+        <button onClick={this.clear.bind(this)} disabled={this.isEmpty()}>Clear</button>
       </div>
     )
   }

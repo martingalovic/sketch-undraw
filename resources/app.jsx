@@ -15,6 +15,7 @@ export default class App extends React.Component {
     super(props)
 
     this.state = {
+      searchIllustrations: null,
       illustrations: [],
       hasMore: null,
 
@@ -56,7 +57,7 @@ export default class App extends React.Component {
     getSearchList(searchTerms)
       .then(response => {
         this.setState({
-          searchIllustrations: response.data.icons
+          searchIllustrations: response.data.data
         })
       })
       .catch(err => {
@@ -110,7 +111,7 @@ export default class App extends React.Component {
 
     let content
 
-    const showSearchResults = searchTerms !== ''
+    const showSearchResults = searchTerms && searchTerms !== '' && searchIllustrations !== null
 
     if (loading) {
       content = <EmptyState message="Loading..." />
@@ -118,6 +119,13 @@ export default class App extends React.Component {
       content = <EmptyState message="Downloading & Pasting..." />
     } else if (searching) {
       content = <EmptyState message="Searching..."/>
+    } else if (showSearchResults) {
+      content = <List
+        illustrations={searchIllustrations}
+        searchResults={true}
+
+        onSvgClick={this.onSvgClick.bind(this)}
+      />
     } else {
       content =
         <InfiniteScroll
@@ -128,7 +136,7 @@ export default class App extends React.Component {
           useWindow={false}
         >
           <List
-            illustrations={showSearchResults ? searchIllustrations : illustrations}
+            illustrations={illustrations}
 
             onSvgClick={this.onSvgClick.bind(this)}
           />

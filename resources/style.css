@@ -175,6 +175,9 @@ header #created-by #author:hover {
     background: none;
     color: #2F7BF7;
 }
+#list__config #search-form button[disabled] {
+    color: #ccc;
+}
 #list__config #search-form button:active {
     color: #5D97F6;
 }

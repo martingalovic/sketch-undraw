@@ -5,7 +5,7 @@ import EmptyState from './empty_state.jsx'
 
 export default class List extends React.Component {
   render() {
-    const {illustrations, onSvgClick} = this.props
+    const {illustrations, onSvgClick, searchResults} = this.props
 
     if (illustrations.length > 0) {
       const items = illustrations.map(item => {
@@ -17,6 +17,14 @@ export default class List extends React.Component {
           {items}
         </div>
       )
+    } else if (illustrations.length === 0) {
+      let emptyMessage
+      if (searchResults) {
+        emptyMessage = "Ooh... No illustrations found, try searching for something else"
+      } else {
+        emptyMessage = "No illustrations found"
+      }
+      return <EmptyState message={emptyMessage} />
     }
 
     return <EmptyState message="😞 Error occured while showing previews" />
