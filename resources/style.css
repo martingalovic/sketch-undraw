@@ -45,6 +45,7 @@ input, textarea {
 .app__scroll {
     height: 410px;
     padding-bottom: 2.5rem;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
