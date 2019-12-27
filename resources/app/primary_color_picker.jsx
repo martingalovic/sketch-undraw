@@ -13,12 +13,25 @@ export default class PrimaryColorPicker extends React.Component {
       '#6137FF',
       '#6D7278',
     ]
+    this.colorsLimit = 10
+  }
+
+  colors() {
+    const {colors, primaryColor} = this.props
+
+    let tmpColors = (colors.length > 0 ? colors : this.defaultColors)
+
+    if (tmpColors.indexOf(primaryColor) === -1) {
+      tmpColors = [primaryColor].concat(tmpColors)
+    }
+
+    return tmpColors.slice(0, this.colorsLimit);
   }
 
   render() {
-    const {colors, onChange, primaryColor} = this.props
+    const {onChange, primaryColor} = this.props
 
-    const colorsItems = (colors.length > 0 ? colors : this.defaultColors).map(color => {
+    const colorsItems = this.colors().map(color => {
       const active = primaryColor === color
 
       return (

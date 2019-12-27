@@ -20,7 +20,7 @@ export default class App extends React.Component {
       hasMore: null,
 
       searchTerms: '',
-      primaryColor: null,
+      primaryColor: props.lastColor,
 
       loading: true,
       pasting: false,
@@ -94,7 +94,9 @@ export default class App extends React.Component {
   }
 
   onPrimaryColorChange(primaryColor) {
-    this.setState({primaryColor})
+    this.setState({primaryColor}, () => {
+      window.postMessage('updateLastColorSetting', this.state.primaryColor)
+    })
   }
 
   render() {
@@ -150,14 +152,18 @@ export default class App extends React.Component {
 
     return (
       <div className="app__container">
-        <Heading close={this.close.bind(this)}/>
+        <div className="app__static">
+          <Heading close={this.close.bind(this)}/>
 
-        <div id="list__config">
-          <Search searchTerms={searchTerms} onChange={this.onSearchChange.bind(this)}/>
-          <PrimaryColorPicker colors={documentColors} primaryColor={primaryColor} onChange={this.onPrimaryColorChange.bind(this)} />
+          <div id="list__config">
+            <Search searchTerms={searchTerms} onChange={this.onSearchChange.bind(this)}/>
+            <PrimaryColorPicker colors={documentColors} primaryColor={primaryColor} onChange={this.onPrimaryColorChange.bind(this)} />
+          </div>
         </div>
 
-        {content}
+        <div className="app__scroll">
+          {content}
+        </div>
       </div>
     )
   }

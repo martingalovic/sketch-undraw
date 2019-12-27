@@ -17,14 +17,19 @@ export default function (context) {
     resizable: false,
     show: false
   }
+  const lastColorSettingKey = 'sketch-undraw.last-color'
 
   const browserWindow = new BrowserWindow(options)
 
   // only show the window when the page has loaded to avoid a white flash
   browserWindow.once('ready-to-show', () => {
     const documentColors = sketch.getSelectedDocument().colors.map(color => color.color.substr(0, 7))
-    const documentColorsInline = documentColors.map(color => '"'+color+'"').join(",")
-    browserWindow.webContents.executeJavaScript('initializeApp({documentColors: [' + documentColorsInline + ']})')
+
+    const props = {
+      documentColors: documentColors,
+      lastColor: sketch.Settings.settingForKey(lastColorSettingKey)
+    }
+    browserWindow.webContents.executeJavaScript('initializeApp('+JSON.stringify(props)+')')
 
     browserWindow.show()
   })
@@ -34,6 +39,11 @@ export default function (context) {
   // add a handler for a call from web content's javascript
   webContents.on('nativeLog', s => {
     sketch.UI.message(s)
+  })
+
+
+  webContents.on('updateLastColorSetting', color => {
+    sketch.Settings.setSettingForKey(lastColorSettingKey, color)
   })
 
   webContents.on('externalLinkClicked', url => {
